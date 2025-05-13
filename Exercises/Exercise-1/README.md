@@ -19,8 +19,8 @@ is where you `Python` code to complete the exercise should go.
    run the following command `docker-compose up run` from inside the `Exercises/Exercise-1` directory
 
 #### Problems Statement
-You need to download 10 files that are sitting at the following specified
-`HTTP` urls. You will use the `Python` package `requests` to do this
+You need to download the 7 files that are sitting at the following specified
+`HTTP` list of urls -> `download_uris`. You will use the `Python` package `requests` to do this
 work.
 
 You will need to pull the filename from the download uri.
@@ -33,18 +33,26 @@ does not exist currently inside the `Exercise-1` folder. You should
 use `Python` to create the directory, do not do it manually.
 
 Generally, your script should do the following ...
-1. create the directory `downloads` if it doesn't exist
-2. download the files one by one.
-3. split out the filename from the uri, so the file keeps its 
+1. Create the directory `downloads` if it doesn't exist
+
+2. Download the files one by one.
+
+3. Split out the filename from the uri, so the file keeps its 
    original filename.
-   
-4. Each file is a `zip`, extract the `csv` from the `zip` and delete
-the `zip` file.
+
+4. Each file is a `zip`, extract the `csv` from the `zip`
+into the same folder as the `zip` file and delete the `zip` file.
+
 5. For extra credit, download the files in an `async` manner using the 
    `Python` package `aiohttp`. Also try using `ThreadPoolExecutor` in 
    `Python` to download the files. Also write unit tests to improve your skills.
 
-#### Download URIs are listed in the `main.py` file.
+#### Download URIs are listed in the `main.py` file as `download_uris`.
+
+#### Teardown
+1. Once you have completed the exercise,
+   run the following command `docker-compose down` from inside the `Exercises/Exercise-1` directory
+
 
 ### Hints
 1. Don't assume all the uri's are valid.
