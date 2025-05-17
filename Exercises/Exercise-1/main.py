@@ -1,6 +1,7 @@
 import requests
 import os
 import zipfile
+import logging
 
 download_uris = [
     "https://divvy-tripdata.s3.amazonaws.com/Divvy_Trips_2018_Q4.zip",
@@ -21,26 +22,34 @@ def processFile(downlaod_dir, uri):
     response = requests.get(uri)
     dest_file = f"{download_dir}/{filename}"
     if response.status_code == 200:
+        logging.info(f"Downloading {filename} to {dest_file}")
         with open(dest_file, "wb") as file:
             file.write(response.content)
-        print(f"Successfully downloaded the file: {dest_file}")
-        print(f"Unzipping: {dest_file}")
+        logging.info(f"Successfully downloaded the file: {dest_file}")
+
+        logging.info(f"Unzipping: {dest_file}")
         # Each file is a `zip`, extract the `csv` from the `zip` and delete the `zip` file.
         with zipfile.ZipFile(dest_file, 'r') as zObject:
             zObject.extractall(path=f"{download_dir}")
-        print(f"Removing zip file: {dest_file}")
+        logging.info(f"Successfully extracted the file: {dest_file}")
+
+        logging.info(f"Removing zip file: {dest_file}")
         os.remove(f"{dest_file}")
+        logging.info(f"Successfully removed the file: {dest_file}")
     else:
-        print(f"Failed to download file {dest_file}. Status code: {response.status_code}")
+        logging.warning(f"Failed to download the file: {dest_file}. Status code: {response.status_code}")
+
 
 def main():
     # your code here
+    logging.basicConfig(level=logging.INFO)
     # create the directory `downloads` if it doesn't exist
+    logging.info("Creating download directory {download_dir}")
     os.makedirs(download_dir, exist_ok=True)
     # download the files one by one.
     for uri in download_uris:
         processFile(download_dir, uri)
-    print("Done!")
+    logging.info("All done!")
 
 if __name__ == "__main__":
     main()
